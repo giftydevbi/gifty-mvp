@@ -1,5 +1,5 @@
 {
-  "name": "email-login",
+  "name": "gifty-mvp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,12 +7,12 @@
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.7.2",
+    "@testing-library/user-event": "^12.8.1",
     "bootstrap": "^4.6.0",
     "firebase": "^8.2.9",
-    "framer-motion": "^3.7.0",
+    "framer-motion": "^3.10.0",
     "react": "^17.0.1",
-    "react-bootstrap": "^1.5.0",
+    "react-bootstrap": "^1.5.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
