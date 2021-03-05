@@ -11,6 +11,7 @@ import UpdateProfile from './UpdateProfile';
 import AddCard from './AddCard';
 import AddFrontImage from "./AddFrontImage";
 import AddBackImage from "./AddBackImage";
+import ShowCard from "./ShowCard";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <PrivateRoute path='/add-card' component={AddCard} />
               <PrivateRoute path='/add-photo-front' component= {AddFrontImage}/>
               <PrivateRoute path='/add-photo-back' component={AddBackImage}/>            
+              <PrivateRoute path='/showcard' component={ShowCard} />            
               <Route path='/signup' component={Signup} />
               <Route path='/login' component={Login} />
               <Route path='/forgot-password' component={ForgotPassword} />

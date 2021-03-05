@@ -9,7 +9,7 @@ const AddBackImage = () => {
     const { setBackImage , storeCardRecord } = useCard();
     const history = useHistory();
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         storeCardRecord();
         history.push('/');
@@ -17,7 +17,7 @@ const AddBackImage = () => {
 
     useEffect( () => {
         if (url)
-        setBackImage(url); 
+            setBackImage(url); 
     },[url, setBackImage]);
 
     return ( 

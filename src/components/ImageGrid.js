@@ -1,10 +1,12 @@
 import React from 'react';
 import useFirestore from '../hooks/useFirestore';
 import { motion } from 'framer-motion';
+import { useHistory } from 'react-router-dom';
 
 const ImageGrid = ({currentUser,setSelectedImg}) => {
     
     const { docs } = useFirestore('images',currentUser.uid);
+    const history = useHistory();
 
     return (  
         <div className="img-grid">
@@ -12,7 +14,11 @@ const ImageGrid = ({currentUser,setSelectedImg}) => {
                 <motion.div className="img-wrap" key={doc.id}
                     whileHover={{opacity:1}}
                     layout
-                    onClick={ () => setSelectedImg(doc.frontImage)}
+                    onClick={ () => {
+                        setSelectedImg(doc.id)
+                        history.push('/showcard',{param:doc.id});
+                    }
+                }
                 >
                     <motion.img src={doc.frontImage} alt='uploaded pic'
                         initial={{opacity:0}}

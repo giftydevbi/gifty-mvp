@@ -22,6 +22,7 @@ const useFirestore = (collection,uid) => {
         return () => unsub();
 
     }, [collection, uid])
+    
     return { docs };
 }
 
