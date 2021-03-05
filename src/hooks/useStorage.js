@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { projectStorage } from '../firebase';
+import { v4 as uuidv4 } from 'uuid';
 
 const useStorage = (file,currentUser) => {
 
@@ -15,7 +16,8 @@ const useStorage = (file,currentUser) => {
         // const email = currentUser.email;
 
         //const childRef = storageRef.child(`images/${uid}/` + file.name);
-        const childRef = storageRef.child('images/' + file.name);
+        //const childRef = storageRef.child('images/' + file.name);
+        const childRef = storageRef.child('images/' + uuidv4() + '.jpg' );
 
         childRef.put(file).on('state_changed', (snap) => {
             let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;

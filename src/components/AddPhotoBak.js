@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import { IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
 import ProgressBar from './ProgressBar';
 import { useAuth } from '../contexts/AuthContext';
-import { Image, Card } from 'react-bootstrap';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
 
 function AddPhoto({ setUrl }) {
 
+    const classes = useStyles();
     const [source, setSource] = useState("");
     const [file, setFile] = useState(null);
 
     const { currentUser } = useAuth();
-    const classes = useStyles();
 
     const handleCapture = (target) => {
         if (target.files) {
@@ -46,10 +47,13 @@ function AddPhoto({ setUrl }) {
     };
 
     return (
-        <>
-            <Card>
-                <Card.Body>
-                    {source && <Image src={source} alt={"snap"} fluid />}
+        <div className={classes.root}>
+            <Grid container>
+                <Grid item xs={12}>
+                    {source &&
+                        <Box display="flex" justifyContent="center" border={1} className={classes.imgBox}>
+                            <img src={source} alt={"snap"} className={classes.img}></img>
+                        </Box>}
                     <input
                         accept="image/*"
                         className={classes.input}
@@ -58,23 +62,21 @@ function AddPhoto({ setUrl }) {
                         capture="environment"
                         onChange={(e) => handleCapture(e.target)}
                     />
-
                     <label htmlFor="icon-button-file">
                         <IconButton
                             color="primary"
                             aria-label="upload picture"
                             component="span"
                         >
-                            <PhotoCameraRoundedIcon className="w-100 mt-2 text-center" fontSize="large" color="primary" />
+                            <PhotoCameraRoundedIcon fontSize="large" color="primary" />
                         </IconButton>
                     </label>
-
-                    <div className="w-100 mt-2 text-center">
-                        {file && <ProgressBar currentUser={currentUser} file={file} setFile={setFile} setUrl={setUrl} />}
-                    </div>
-                </Card.Body>
-            </Card>
-        </>
+                </Grid>
+            </Grid>
+            <div className="w-100 mt-2 text-center">
+                {file && <ProgressBar currentUser={currentUser} file={file} setFile={setFile} setUrl={setUrl} />}
+            </div>
+        </div>
     );
 }
 
