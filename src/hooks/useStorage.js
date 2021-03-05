@@ -10,13 +10,12 @@ const useStorage = (file,currentUser) => {
     useEffect(() => {
         //References
         const storageRef = projectStorage.ref();
-        const collectionRef = projectFirestore.collection('images');
-        
-        const uid = currentUser.uid;
-        const email = currentUser.email;
+        // const collectionRef = projectFirestore.collection('images');
+        // const uid = currentUser.uid;
+        // const email = currentUser.email;
 
-        const childRef = storageRef.child(`images/${uid}/` + file.name);
-        console.log(`images/${uid}/` + file.name);
+        //const childRef = storageRef.child(`images/${uid}/` + file.name);
+        const childRef = storageRef.child('images/' + file.name);
 
         childRef.put(file).on('state_changed', (snap) => {
             let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
@@ -27,15 +26,15 @@ const useStorage = (file,currentUser) => {
             const url = await childRef.getDownloadURL();
             setUrl(url);
             //create a database record
-            collectionRef.add({
-                uid: uid,
-                email: email,
-                url: url,
-                createdAt: timestamp()
-            })
+            // collectionRef.add({
+            //     uid: uid,
+            //     email: email,
+            //     url: url,
+            //     createdAt: timestamp()
+            // })
         });
 
-    }, [currentUser.email, currentUser.uid, file])
+    }, [currentUser.email, currentUser.uid, file]);
 
     return { url, progress, error };
 }

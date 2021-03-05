@@ -2,17 +2,18 @@ import React, { useEffect } from 'react';
 import useStorage from '../hooks/useStorage';
 import {motion} from 'framer-motion';
 
-const ProgressBar = ({currentUser, file, setFile}) => {
+const ProgressBar = ({currentUser, file, setFile, setUrl}) => {
 
-    console.log('progress bar file = ' + JSON.stringify(file));
+    //console.log('progress bar file = ' + JSON.stringify(file));
     const { url, progress } = useStorage(file,currentUser);
-    console.log(url, progress);
+    //console.log(url, progress);
 
     useEffect( ()=> {
         if (url) {
             setFile(null);
+            setUrl(url);
         }
-    } ,[url,setFile] )
+    } ,[url,setFile,setUrl] )
 
     return (  
         <motion.div className="progress-bar" 
