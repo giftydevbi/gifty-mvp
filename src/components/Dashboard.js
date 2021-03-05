@@ -3,12 +3,10 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import ImageGrid from './ImageGrid';
-import ShowCard from './ShowCard';
 
 const Dashboard = () => {
 
     const [error, setError] = useState("");
-    const [ selectedImg, setSelectedImg ] = useState(null);
     const history = useHistory();
 
     const { currentUser, logout } = useAuth();
@@ -35,7 +33,7 @@ const Dashboard = () => {
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Alert variant="info">{currentUser.email} </Alert>
 
-                    <ImageGrid setSelectedImg={setSelectedImg} currentUser={currentUser}/>
+                    <ImageGrid currentUser={currentUser}/>
 
                     <Link to='update-profile' className='btn btn-primary w-100 mt-3'>
                         Update Profile

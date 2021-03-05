@@ -38,7 +38,7 @@ function AddPhoto({ setUrl }) {
         if (target.files) {
             if (target.files.length !== 0) {
                 const uploadFile = target.files[0];
-                console.log(`upload file = ${uploadFile.name}`);
+                //console.log(`upload file = ${uploadFile.name}`);
                 setFile(uploadFile);
                 const newUrl = URL.createObjectURL(uploadFile);
                 setSource(newUrl);

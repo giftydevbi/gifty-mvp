@@ -2,11 +2,10 @@
 import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
     const emailRef = useRef();
-    const history = useHistory();
     const [message,setMessage] = useState("");
 
     const [error, setError] = useState("");

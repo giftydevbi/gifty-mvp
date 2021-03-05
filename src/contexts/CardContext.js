@@ -35,9 +35,9 @@ export function CardProvider( {children}) {
             backImage: backImage,
             createdAt: timestamp()
         };
-        console.log('storeCardRecord = '  + JSON.stringify(record));
+        //console.log('storeCardRecord = '  + JSON.stringify(record));
         collectionRef.add(record)
-        .then( result => console.log(result) )
+        .then( result => (true) )
         .catch( err => console.log(err.message));
     }
 

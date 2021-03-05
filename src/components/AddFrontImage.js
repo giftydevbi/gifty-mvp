@@ -17,7 +17,7 @@ const AddFrontImage = () => {
     useEffect( () => {
         if (url) {
             setFrontImage(url); 
-            console.log('Addfrontimage url = ' + url);
+            //console.log('Addfrontimage url = ' + url);
         }
     },[url, setFrontImage]);
 

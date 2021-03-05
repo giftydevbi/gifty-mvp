@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { projectStorage, projectFirestore, timestamp } from '../firebase';
+import { projectStorage } from '../firebase';
 
 const useStorage = (file,currentUser) => {
 

@@ -1,5 +1,5 @@
 
-import React , {useRef, useState } from 'react';
+import React , {useRef, useState ,useEffect} from 'react';
 import { Form, Button, Card , Alert } from 'react-bootstrap';
 import {useAuth} from '../contexts/AuthContext';
 import {Link, useHistory} from 'react-router-dom';
@@ -14,6 +14,7 @@ const Signup = () => {
     const [loading,setLoading] = useState(false);
 
     const {signup} = useAuth();
+    let unsub ;
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -25,7 +26,7 @@ const Signup = () => {
         try {
             setError('');
             setLoading(true);
-            await signup(emailRef.current.value,passwordRef.current.value);
+            unsub = await signup(emailRef.current.value,passwordRef.current.value);
             history.push('/login');
         }
         catch (err) {
@@ -34,6 +35,10 @@ const Signup = () => {
         }
         setLoading(false);
     }
+
+    useEffect(() => {
+        return () => unsub;
+    });
 
     return (  
         <>

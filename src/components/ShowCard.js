@@ -18,12 +18,12 @@ const ShowCard = ({ selectedImg }) => {
 
         const collectionRef = projectFirestore.collection('images');
 
-        console.log('selectedimg = ' + location.state.param);
+        //console.log('selectedimg = ' + location.state.param);
 
         collectionRef.doc(location.state.param).get()
             .then(doc => {
                 if (doc) {
-                    console.log(doc.data());
+                    //console.log(doc.data());
                     setDoc(doc.data());
                     setDbReadComplete(true);
                 }

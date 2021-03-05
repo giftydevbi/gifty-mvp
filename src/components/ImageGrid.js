@@ -15,7 +15,6 @@ const ImageGrid = ({ currentUser, setSelectedImg }) => {
                     whileHover={{ opacity: 1 }}
                     layout
                     onClick={() => {
-                        setSelectedImg(doc.id)
                         history.push('/showcard', { param: doc.id });
                     }
                     }
