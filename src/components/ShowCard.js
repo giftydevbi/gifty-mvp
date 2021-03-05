@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { Button, Card ,Image} from 'react-bootstrap';
-import { useHistory , useLocation } from 'react-router-dom';
+import { Button, Card, Image } from 'react-bootstrap';
+import { useHistory, useLocation } from 'react-router-dom';
 import { projectFirestore } from '../firebase';
 
 const ShowCard = ({ selectedImg }) => {
@@ -46,23 +46,30 @@ const ShowCard = ({ selectedImg }) => {
         <>
             <Card>
                 {dbReadComplete && <Card.Body>
-
-                    <h3 className="text-center mb-4">{doc.name}</h3>
-
-                    <h4 className="text-center mb-4">{doc.number}</h4>
-
-                    <h4 className="text-center mb-4">{doc.pin}</h4>
-
-                    <h4 className="text-center mb-4">Front</h4>
-                    <Image  src={doc.frontImage} alt='frontimage' fluid/>
-
-                    <h4 className="text-center mb-4">Back</h4>
-                    <Image  src={doc.backImage} alt='backimage' fluid/>
-
-                    <Button onClick={handleClick} className="w-100">Close</Button>
-
+                    <h4 className="text-center mb-2">{doc.name}</h4>
+                    <h5 className="text-center mb-2">Number: {doc.number}</h5>
+                    <h5 className="text-center mb-2">Pin: {doc.pin}</h5>
                 </Card.Body>}
+            </Card>
 
+            <Card>
+                {dbReadComplete && <Card.Body>
+                    <h5 className="text-center mb-2">Front</h5>
+                    <Image src={doc.frontImage} alt='frontimage' fluid />
+                </Card.Body>}
+            </Card>
+
+            <Card>
+                {dbReadComplete && <Card.Body>
+                    <h5 className="text-center mb-2">Back</h5>
+                    <Image src={doc.backImage} alt='backimage' fluid />
+                </Card.Body>}
+            </Card>
+
+            <Card>
+                {dbReadComplete && <Card.Body>
+                    <Button onClick={handleClick} className="w-100">Close</Button>
+                </Card.Body>}
             </Card>
 
         </>

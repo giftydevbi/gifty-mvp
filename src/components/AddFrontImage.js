@@ -23,7 +23,7 @@ const AddFrontImage = () => {
 
     return ( 
         <>
-            <h3>Take photo of front</h3>
+            <h5 className="w-100 mt-2 text-center">Photo: Front of Card</h5>
             <AddPhoto setUrl={setUrl} />
             <Button disabled={url === null} onClick={handleSubmit} type="submit" className="w-100">Next</Button>
         </>

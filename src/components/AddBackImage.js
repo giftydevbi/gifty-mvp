@@ -22,7 +22,7 @@ const AddBackImage = () => {
 
     return ( 
         <>
-            <h3>Take photo of back</h3>
+            <h5 className="w-100 mt-2 text-center" >Photo: Back of Card</h5>
             <AddPhoto setUrl={setUrl} />
             <Button disabled={url === null} onClick={handleSubmit} type="submit" className="w-100">Done</Button>
         </>

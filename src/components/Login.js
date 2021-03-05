@@ -54,7 +54,7 @@ const Login = () => {
         <>
             <Card>
                 <Card.Body>
-                    <h2 className="text-center mb-4">Login</h2>
+                    <h5 className="text-center mb-4">Gifty Login</h5>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id='email'>
@@ -77,14 +77,17 @@ const Login = () => {
                         No Account ? <Link to='/signup'>Sign up</Link>
                     </div>
 
-                    <div className="w-100 mt-2 text-center">
-                        <GoogleButton
-                            onClick={handleGoogleLogin}
-                        />
-                    </div>
+
                 </Card.Body>
             </Card>
 
+            <Card>
+                <Card.Body>
+                    <GoogleButton className="w-100 text-center"
+                        onClick={handleGoogleLogin}
+                    />
+                </Card.Body>
+            </Card>
 
         </>
     );

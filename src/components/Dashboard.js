@@ -31,10 +31,9 @@ const Dashboard = () => {
             <Card>
                 <Card.Body>
                     
-                    <h2 className="text-center mb-4">Profile</h2>
+                    <h5 className="text-center mb-4">Card Wallet</h5>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    <strong>Email:</strong> {currentUser.email} <br />
-                    <strong>Uid:</strong> {currentUser.uid}
+                    <Alert variant="info">{currentUser.email} </Alert>
 
                     <ImageGrid setSelectedImg={setSelectedImg} currentUser={currentUser}/>
 

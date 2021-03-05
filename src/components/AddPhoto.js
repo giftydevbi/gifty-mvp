@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function AddPhoto({setUrl}) {
+function AddPhoto({ setUrl }) {
 
     const classes = useStyles();
     const [source, setSource] = useState("");
@@ -50,7 +50,6 @@ function AddPhoto({setUrl}) {
         <div className={classes.root}>
             <Grid container>
                 <Grid item xs={12}>
-                    <h5>Capture your image</h5>
                     {source &&
                         <Box display="flex" justifyContent="center" border={1} className={classes.imgBox}>
                             <img src={source} alt={"snap"} className={classes.img}></img>
@@ -75,7 +74,7 @@ function AddPhoto({setUrl}) {
                 </Grid>
             </Grid>
             <div className="w-100 mt-2 text-center">
-                {file && <ProgressBar currentUser={currentUser} file={file} setFile={setFile} setUrl={setUrl}/>}
+                {file && <ProgressBar currentUser={currentUser} file={file} setFile={setFile} setUrl={setUrl} />}
             </div>
         </div>
     );
