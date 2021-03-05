@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
@@ -13,14 +13,14 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const { login } = useAuth();
+    let unsub  ;
 
     async function handleSubmit(e) {
         e.preventDefault();
-
         try {
             setError('');
             setLoading(true);
-            await login(emailRef.current.value, passwordRef.current.value);
+            unsub = await login(emailRef.current.value, passwordRef.current.value);
             history.push('/');
         }
         catch (err) {
@@ -29,6 +29,10 @@ const Login = () => {
         }
         setLoading(false);
     }
+
+    useEffect( () => {
+        return () => unsub ;
+    });
 
     return (
         <>
