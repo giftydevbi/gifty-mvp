@@ -1,13 +1,12 @@
-# This app is built using React and Firebase
+## This app is built using React and Firebase
 
 A logged in user can store gift card details including pictures of the front and back.
 
 Firebase is a Backend-As-A-Service, that provides authentication, a no-sql database and an image store.
-Rudimentary styling is using react-bootstrap.
 This App skeleton code implements the business logic, managing authentication, storing and retrieving images and 
 card meta-data.
 
-Rudimentary styling.
+Rudimentary styling using react-bootstrap.
 
 Hosted at: https://gifty-live.web.app
 
@@ -15,7 +14,7 @@ For developers only:
 The firebase project name is : gifty-live  
 The firebase username is : giftydevbi@gmail.com  
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
