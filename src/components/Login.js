@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
+import GoogleButton from 'react-google-button';
 
 const Login = () => {
     const emailRef = useRef();
@@ -12,8 +13,8 @@ const Login = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const { login } = useAuth();
-    let unsub  ;
+    const { login , googleLogin } = useAuth();
+    let unsub;
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -30,8 +31,23 @@ const Login = () => {
         setLoading(false);
     }
 
-    useEffect( () => {
-        return () => unsub ;
+    async function handleGoogleLogin(e) {
+        e.preventDefault();
+        try {
+            setError('');
+            setLoading(true);
+            unsub = await googleLogin();
+            history.push('/');
+        }
+        catch (err) {
+            console.log(err);
+            setError(err.message);
+        }
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        return () => unsub;
     });
 
     return (
@@ -57,12 +73,15 @@ const Login = () => {
                     <div className="w-100 mt-3 text-center">
                         <Link to='/forgot-password'>Forgot Password ?</Link>
                     </div>
+                    <div className="w-100 mt-2 text-center">
+                        No Account ? <Link to='/signup'>Sign up</Link>
+                    </div>
                 </Card.Body>
-
             </Card>
-            <div className="w-100 mt-2 text-center">
-                No Account ? <Link to='/signup'>Sign up</Link>
-            </div>
+
+            <GoogleButton
+                onClick={handleGoogleLogin}
+            />
         </>
     );
 }
