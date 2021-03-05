@@ -13,7 +13,7 @@ const Login = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const { login , googleLogin } = useAuth();
+    const { login, googleLogin } = useAuth();
     let unsub;
 
     async function handleSubmit(e) {
@@ -76,12 +76,16 @@ const Login = () => {
                     <div className="w-100 mt-2 text-center">
                         No Account ? <Link to='/signup'>Sign up</Link>
                     </div>
+
+                    <div className="w-100 mt-2 text-center">
+                        <GoogleButton
+                            onClick={handleGoogleLogin}
+                        />
+                    </div>
                 </Card.Body>
             </Card>
 
-            <GoogleButton
-                onClick={handleGoogleLogin}
-            />
+
         </>
     );
 }

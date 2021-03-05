@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card ,Image} from 'react-bootstrap';
 import { useHistory , useLocation } from 'react-router-dom';
 import { projectFirestore } from '../firebase';
 
@@ -53,9 +53,11 @@ const ShowCard = ({ selectedImg }) => {
 
                     <h4 className="text-center mb-4">{doc.pin}</h4>
 
-                    <img src={doc.frontImage} alt='frontimage' />
+                    <h4 className="text-center mb-4">Front</h4>
+                    <Image  src={doc.frontImage} alt='frontimage' fluid/>
 
-                    <img src={doc.backImage} alt='backimage' />
+                    <h4 className="text-center mb-4">Back</h4>
+                    <Image  src={doc.backImage} alt='backimage' fluid/>
 
                     <Button onClick={handleClick} className="w-100">Close</Button>
 
