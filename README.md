@@ -8,7 +8,7 @@ card meta-data.
 
 Rudimentary styling using react-bootstrap.
 
-Hosted at: https://gifty-live.web.app
+Hosted at: https://gifte-live.web.app
 
 For developers only:  
 The firebase project name is : gifty-live  
@@ -37,6 +37,9 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
+
+Sometimes the build doesn't seem to take the latest changes. In that case delete the build folder
+and execute npm run build again.
 
 ### To deploy
 
