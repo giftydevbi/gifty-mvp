@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Form, Button, Card, Alert, Row, Col } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
@@ -54,8 +54,30 @@ const Login = () => {
         <>
             <Card>
                 <Card.Body>
-                    <h5 className="text-center mb-4">Gifty Login</h5>
+
+                    <Row className="justify-content-md-center">
+                        <Col xs={12} sm={4} md={4}>
+                            <img
+                                alt=""
+                                src="/gifte-logo.png"
+                                width="100"
+                                height="100"
+                                className="d-inline-block align-center"
+                            />
+                        </Col>
+                    </Row>
+
+
                     {error && <Alert variant="danger">{error}</Alert>}
+
+                    <GoogleButton className="w-100 text-center mt-3"
+                        onClick={handleGoogleLogin}
+                    />
+                </Card.Body>
+            </Card>
+
+            <Card>
+                <Card.Body>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id='email'>
                             <Form.Label>Email</Form.Label>
@@ -81,13 +103,7 @@ const Login = () => {
                 </Card.Body>
             </Card>
 
-            <Card>
-                <Card.Body>
-                    <GoogleButton className="w-100 text-center"
-                        onClick={handleGoogleLogin}
-                    />
-                </Card.Body>
-            </Card>
+
 
         </>
     );
