@@ -11,6 +11,8 @@ export function useAuth() {
 export function AuthProvider( {children}) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
+    const [loggedInWithGoogle, setLoggedInWithGoogle] = useState(false);
+
     const googleProvider = new firebase.auth.GoogleAuthProvider();
 
     function signup(email,password) {
@@ -18,10 +20,12 @@ export function AuthProvider( {children}) {
     } 
     
     function login(email,password) {
+        setLoggedInWithGoogle(false);
         return auth.signInWithEmailAndPassword(email,password);
     }
 
     function googleLogin() {
+        setLoggedInWithGoogle(true);
         return auth.signInWithPopup(googleProvider);
     }
 
@@ -43,7 +47,6 @@ export function AuthProvider( {children}) {
 
     useEffect( () => {
         const unsubscribe = auth.onAuthStateChanged( user => {
-            //console.log('user = ' + JSON.stringify(user));
             setCurrentUser(user);
             setLoading(false);
         })
@@ -51,7 +54,9 @@ export function AuthProvider( {children}) {
     },[]);
 
     const value = {
-        currentUser, signup, login, logout,resetPassword,updateEmail,updatePassword, googleLogin
+        currentUser, signup, login, logout,
+        resetPassword,updateEmail,updatePassword, 
+        googleLogin, loggedInWithGoogle
     }
 
     return(

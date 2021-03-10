@@ -9,7 +9,7 @@ const Dashboard = () => {
     const [error, setError] = useState("");
     const history = useHistory();
 
-    const { currentUser, logout } = useAuth();
+    const { currentUser, logout , loggedInWithGoogle} = useAuth();
 
     async function handleLogout() {
         setError('');
@@ -35,9 +35,9 @@ const Dashboard = () => {
 
                     <ImageGrid currentUser={currentUser}/>
 
-                    <Link to='update-profile' className='btn btn-primary w-100 mt-3'>
+                    {!loggedInWithGoogle && <Link to='update-profile' className='btn btn-primary w-100 mt-3'>
                         Update Profile
-                     </Link>
+                     </Link>}
 
                     <Link to='add-card' className='btn btn-info w-100 mt-3'>
                         Add Card
