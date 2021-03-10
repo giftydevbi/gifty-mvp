@@ -12,6 +12,7 @@ import AddCard from './AddCard';
 import AddFrontImage from "./AddFrontImage";
 import AddBackImage from "./AddBackImage";
 import ShowCard from "./ShowCard";
+import BarcodeScanner from "./BarcodeScanner";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <PrivateRoute exact path='/' component={Dashboard} />
               <PrivateRoute path='/update-profile' component={UpdateProfile} />
               <PrivateRoute path='/add-card' component={AddCard} />
+              <PrivateRoute path='/scan-barcode' component={BarcodeScanner} />
               <PrivateRoute path='/add-photo-front' component= {AddFrontImage}/>
               <PrivateRoute path='/add-photo-back' component={AddBackImage}/>            
               <PrivateRoute path='/showcard' component={ShowCard} />            

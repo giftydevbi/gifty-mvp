@@ -14,7 +14,7 @@ const AddCard = () => {
     const [loading,setLoading] = useState(false);
 
     const {currentUser} = useAuth();
-    const { setName, setNumber, setPin, setCurrentUser} = useCard();
+    const { setName, setNumber, number, setPin, setCurrentUser} = useCard();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -27,6 +27,11 @@ const AddCard = () => {
         history.push('/add-photo-front');
 
         setLoading(false);
+    }
+
+    function handleClick(e) {
+        e.preventDefault();
+        history.push('/scan-barcode');
     }
 
     return (  
@@ -45,7 +50,8 @@ const AddCard = () => {
 
                         <Form.Group id='number'>
                             <Form.Label>Number</Form.Label>
-                            <Form.Control type="text" ref={numberRef} />
+                            <Form.Control type="text" ref={numberRef} value={number} placeHolder={number} />
+                            <Button onClick={handleClick} className="w-50">Scan Barcode</Button>
                         </Form.Group>
 
                         <Form.Group id='pin'>

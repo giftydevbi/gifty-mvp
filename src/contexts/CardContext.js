@@ -42,7 +42,10 @@ export function CardProvider( {children}) {
     }
 
     const value = {
-        setName,setNumber,setPin,setFrontImage,setBackImage,storeCardRecord,setCurrentUser
+        setName,setNumber,number,
+        setPin,setFrontImage,
+        setBackImage,storeCardRecord,
+        setCurrentUser
     }
 
     return(
