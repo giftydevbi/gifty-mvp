@@ -5,7 +5,7 @@ import {useCard} from '../contexts/CardContext';
 
 function BarcodeScanner () {
  
-  const [ data, setData ] = useState('No valid barcode');
+  const [ data, setData ] = useState('Looking for valid barcode');
   const { setNumber } = useCard();
   const history = useHistory();
 
@@ -20,11 +20,11 @@ function BarcodeScanner () {
             setNumber(result.text);
             history.push('/add-card');
           }
-          else setData('No valid barcode')
+          else setData('Looking for valid barcode')
         }}
       />
       <p>{data}</p>
-      <Link to='/'>Cancel</Link>
+      <Link to='/add-card'>Cancel</Link>
     </>
   )
 }

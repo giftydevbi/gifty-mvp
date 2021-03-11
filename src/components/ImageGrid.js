@@ -20,7 +20,7 @@ const ImageGrid = ({ currentUser, setSelectedImg }) => {
                     <Card>
                         <Card.Body>
                             <h6>{doc.name}</h6>
-                            <Image src={doc.frontImage} alt='uploaded pic'
+                            <Image className='resize' src={doc.frontImage} alt='uploaded pic'
                                 fluid
                             />
                         </Card.Body>
