@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Form, Button, Card, Alert, Row, Col } from 'react-bootstrap';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
@@ -55,18 +55,15 @@ const Login = () => {
             <Card>
                 <Card.Body>
 
-                    <Row className="justify-content-center">
-                        <Col xs={12} sm={4} md={4}>
-                            <img
+                    <Card.Title className="text-center">
+                    <img
                                 alt=""
                                 src="/gifte-logo.png"
                                 width="100"
                                 height="100"
                                 className="d-inline-block align-center"
                             />
-                        </Col>
-                    </Row>
-
+                    </Card.Title>
 
                     {error && <Alert variant="danger">{error}</Alert>}
 
