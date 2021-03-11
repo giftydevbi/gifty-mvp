@@ -55,7 +55,7 @@ const Login = () => {
             <Card>
                 <Card.Body>
 
-                    <Row className="justify-content-md-center">
+                    <Row className="justify-content-center">
                         <Col xs={12} sm={4} md={4}>
                             <img
                                 alt=""
