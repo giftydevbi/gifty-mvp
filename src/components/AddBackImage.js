@@ -2,7 +2,7 @@ import AddPhoto from "./AddPhoto";
 import React, { useEffect, useState } from 'react';
 import {Button} from 'react-bootstrap';
 import { useCard } from '../contexts/CardContext';
-import { useHistory} from 'react-router-dom';
+import { useHistory, Link} from 'react-router-dom';
 
 const AddBackImage = () => {
     const [url,setUrl] = useState(null);
@@ -25,6 +25,9 @@ const AddBackImage = () => {
             <h5 className="w-100 mt-2 text-center" >Photo: Back of Card</h5>
             <AddPhoto setUrl={setUrl} />
             <Button disabled={url === null} onClick={handleSubmit} type="submit" className="w-100">Done</Button>
+            <div className="w-100 mt-3 text-center">
+                <Link to='/'>Cancel</Link>
+            </div>
         </>
      );
 }

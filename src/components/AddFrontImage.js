@@ -1,5 +1,5 @@
 import AddPhoto from "./AddPhoto";
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import React, { useState , useEffect } from 'react';
 import { useCard } from '../contexts/CardContext';
 import {Button} from 'react-bootstrap';
@@ -26,6 +26,9 @@ const AddFrontImage = () => {
             <h5 className="w-100 mt-2 text-center">Photo: Front of Card</h5>
             <AddPhoto setUrl={setUrl} />
             <Button disabled={url === null} onClick={handleSubmit} type="submit" className="w-100">Next</Button>
+            <div className="w-100 mt-3 text-center">
+                <Link to='/'>Cancel</Link>
+            </div>
         </>
      );
 }

@@ -1,19 +1,19 @@
-import React , { useState } from 'react';
+import React, { useState } from 'react';
 import BarcodeScannerComponent from "react-webcam-barcode-scanner";
-import { Link , useHistory } from 'react-router-dom';
-import {useCard} from '../contexts/CardContext';
+import { Link, useHistory } from 'react-router-dom';
+import { useCard } from '../contexts/CardContext';
+import { Card } from 'react-bootstrap';
 
-function BarcodeScanner () {
- 
-  const [ data, setData ] = useState('Looking for valid barcode');
+function BarcodeScanner() {
+
+  const [data, setData] = useState('Looking for valid barcode');
   const { setNumber } = useCard();
   const history = useHistory();
 
   return (
     <>
+
       <BarcodeScannerComponent
-        width={500}
-        height={500}
         onUpdate={(err, result) => {
           if (result) {
             setData(result.text);
@@ -23,10 +23,14 @@ function BarcodeScanner () {
           else setData('Looking for valid barcode')
         }}
       />
-      <p>{data}</p>
-      <Link to='/add-card'>Cancel</Link>
+      <Card>
+        <Card.Body>
+          <p>{data}</p>
+          <Link to='/add-card'>Cancel</Link>
+        </Card.Body>
+      </Card>
     </>
   )
 }
- 
+
 export default BarcodeScanner;

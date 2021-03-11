@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Form, Button, Card , InputGroup, FormControl } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useCard } from '../contexts/CardContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const AddCard = () => {
     const nameRef = useRef();
@@ -43,11 +43,6 @@ const AddCard = () => {
 
                     <Form onSubmit={handleSubmit}>
 
-                        <Form.Group id='name'>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" ref={nameRef} required />
-                        </Form.Group>
-
                         <Form.Group id='number'>
                             <Form.Label>Number</Form.Label>
 
@@ -65,17 +60,24 @@ const AddCard = () => {
                                     </Button>
                                 </InputGroup.Append>
                             </InputGroup>
+                        </Form.Group>
 
+                        <Form.Group id='name'>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" ref={nameRef} required />
                         </Form.Group>
 
                         <Form.Group id='pin'>
                             <Form.Label>PIN</Form.Label>
                             <Form.Control type="text" ref={pinRef} />
                         </Form.Group>
-
                         <Button disabled={loading} type="submit" className="w-100">Next</Button>
 
                     </Form>
+
+                    <div className="w-100 mt-3 text-center">
+                        <Link to='/'>Cancel</Link>
+                    </div>
 
                 </Card.Body>
 
