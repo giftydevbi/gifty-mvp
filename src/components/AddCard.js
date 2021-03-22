@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState ,useEffect} from 'react';
 import { Form, Button, Card , InputGroup, FormControl } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useCard } from '../contexts/CardContext';
@@ -14,7 +14,14 @@ const AddCard = () => {
     const [loading, setLoading] = useState(false);
 
     const { currentUser } = useAuth();
-    const { setName, setNumber, number, setPin, setCurrentUser } = useCard();
+    const { setName, setNumber, number,
+            setPin, setCurrentUser,
+            scanSuccess,setScanSuccess 
+            } = useCard();
+
+    useEffect(() => {
+        setScanSuccess(false);
+    });    
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -47,14 +54,23 @@ const AddCard = () => {
                             <Form.Label>Number</Form.Label>
 
                             <InputGroup className="mb-3">
-                                <FormControl
-                                    type="text" ref={numberRef} value={number} placeHolder={number}
-                                    aria-label="Number"
-                                    aria-describedby="basic-addon2"
-                                />
+                                { scanSuccess ? 
+                                    <FormControl
+                                            type="text" ref={numberRef} value={number} 
+                                            aria-label="Number"
+                                            aria-describedby="basic-addon2"
+                                        />
+                                              :
+                                    <FormControl
+                                              type="text" ref={numberRef} 
+                                              aria-label="Number"
+                                              aria-describedby="basic-addon2"
+                                    />
+                                }
+
                                 <InputGroup.Append>
                                     <Button onClick={handleClick} variant="primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upc-scan" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-upc-scan" viewBox="0 0 16 16">
                                         <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
                                     </svg>
                                     </Button>

@@ -19,6 +19,7 @@ export function CardProvider( {children}) {
     const [frontImage, setFrontImage] = useState();
     const [backImage, setBackImage ] = useState();
     const [loading, setLoading] = useState(true);
+    const [scanSuccess, setScanSuccess] = useState(false);
 
     useEffect( () => {
         setLoading(false);
@@ -45,7 +46,9 @@ export function CardProvider( {children}) {
         setName,setNumber,number,
         setPin,setFrontImage,
         setBackImage,storeCardRecord,
-        setCurrentUser
+        setCurrentUser,
+        scanSuccess,
+        setScanSuccess
     }
 
     return(

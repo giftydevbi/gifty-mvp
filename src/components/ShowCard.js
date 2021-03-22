@@ -1,30 +1,32 @@
 
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Image } from 'react-bootstrap';
+import { Button, Card, Image, Modal } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import { projectFirestore } from '../firebase';
+import { projectStorage } from '../firebase';
 
 const ShowCard = ({ selectedImg }) => {
 
+    const [modalShow, setModalShow] = useState(false);
     const [doc, setDoc] = useState(null);
     const [dbReadComplete, setDbReadComplete] = useState(false);
 
     const history = useHistory();
     const location = useLocation();
 
+    const handleModalShow = () => setModalShow(true);
+    const handleModalClose = () => setModalShow(false);
+
     useEffect(() => {
 
         setDoc(null);
-
         const collectionRef = projectFirestore.collection('images');
 
-        //console.log('selectedimg = ' + location.state.param);
-
         collectionRef.doc(location.state.param).get()
-            .then(doc => {
-                if (doc) {
+            .then(document => {
+                if (document) {
                     //console.log(doc.data());
-                    setDoc(doc.data());
+                    setDoc(document.data());
                     setDbReadComplete(true);
                 }
                 else
@@ -37,9 +39,36 @@ const ShowCard = ({ selectedImg }) => {
 
     }, [location.state.param])
 
-    function handleClick(e) {
+    function handleClose(e) {
         e.preventDefault();
         history.push('/');
+    }
+
+    function handleDelete(e) {
+        e.preventDefault();
+
+        const collectionRef = projectFirestore.collection('images');
+
+        //Get frontimage
+        const frontImageRef = projectStorage.refFromURL(doc.frontImage);
+        const backImageRef = projectStorage.refFromURL(doc.backImage);
+
+        frontImageRef.delete()
+        .then( frontDeleteResult => {
+            //console.log(frontDeleteResult);
+            return backImageRef.delete();
+        })
+        .then( backDeleteResult => {
+            //console.log(backDeleteResult);
+            return  collectionRef.doc(location.state.param).delete();
+        })
+        .then(docDeleteResult => {
+            //console.log(docDeleteResult);
+            history.push('/');
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
 
     return (
@@ -68,9 +97,29 @@ const ShowCard = ({ selectedImg }) => {
 
             <Card>
                 {dbReadComplete && <Card.Body>
-                    <Button onClick={handleClick} className="w-100">Close</Button>
+                    <Button onClick={handleClose} className="w-100">Close</Button>
                 </Card.Body>}
             </Card>
+
+            <Card>
+                {dbReadComplete && <Card.Body>
+                    <Button onClick={handleModalShow} className="btn-danger w-100">Delete</Button>
+                </Card.Body>}
+            </Card>
+
+            <Modal size='sm' show={modalShow} onHide={handleModalClose}>
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>Confirm Card Deletion</Modal.Body>
+                <Modal.Footer>
+                <Button variant="danger" onClick={handleDelete} className="text-center">
+                        OK
+                    </Button>
+                    <Button variant="secondary" onClick={handleModalClose} className="text-center">
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
         </>
     );

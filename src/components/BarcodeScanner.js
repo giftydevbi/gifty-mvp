@@ -7,7 +7,7 @@ import { Card } from 'react-bootstrap';
 function BarcodeScanner() {
 
   const [data, setData] = useState('Looking for valid barcode');
-  const { setNumber } = useCard();
+  const { setNumber ,setScanSuccess } = useCard();
   const history = useHistory();
 
   return (
@@ -18,6 +18,7 @@ function BarcodeScanner() {
           if (result) {
             setData(result.text);
             setNumber(result.text);
+            setScanSuccess(true);
             history.push('/add-card');
           }
           else setData('Looking for valid barcode')

@@ -11,12 +11,6 @@ const useStorage = (file,currentUser) => {
     useEffect(() => {
         //References
         const storageRef = projectStorage.ref();
-        // const collectionRef = projectFirestore.collection('images');
-        // const uid = currentUser.uid;
-        // const email = currentUser.email;
-
-        //const childRef = storageRef.child(`images/${uid}/` + file.name);
-        //const childRef = storageRef.child('images/' + file.name);
         const childRef = storageRef.child('images/' + uuidv4() + '.jpg' );
 
         childRef.put(file).on('state_changed', (snap) => {
