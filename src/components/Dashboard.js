@@ -1,5 +1,5 @@
 import { Card, Button, Alert } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import ImageGrid from './ImageGrid';
@@ -7,9 +7,17 @@ import ImageGrid from './ImageGrid';
 const Dashboard = () => {
 
     const [error, setError] = useState("");
+    const [displayProfile, setDisplayProfile] = useState(false);
     const history = useHistory();
 
     const { currentUser, logout , loggedInWithGoogle} = useAuth();
+
+    useEffect( () => {
+        if ( loggedInWithGoogle )
+            setDisplayProfile(false);
+        else
+            setDisplayProfile(true);
+    },[loggedInWithGoogle])
 
     async function handleLogout() {
         setError('');
@@ -35,7 +43,7 @@ const Dashboard = () => {
 
                     <ImageGrid currentUser={currentUser}/>
 
-                    {!loggedInWithGoogle && <Link to='update-profile' className='btn btn-primary w-100 mt-3'>
+                    {displayProfile && <Link to='update-profile' className='btn btn-primary w-100 mt-3'>
                         Update Profile
                      </Link>}
 

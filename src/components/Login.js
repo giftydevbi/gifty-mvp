@@ -2,19 +2,31 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
 
 const Login = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const history = useHistory();
+    const location = useLocation();
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [signupSuccess, setSignupSuccess] = useState(false);
+    const [signupFail, setSignupFail] = useState(false);
 
     const { login, googleLogin } = useAuth();
     let unsub;
+
+    useEffect( ()=> {
+        if ( location.state ) {
+            if (location.state.param === "Signup Successful")
+                setSignupSuccess(true);
+            if (location.state.param === "Signup Failed")
+                setSignupFail(true);
+        }
+    },[location.state])
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -75,6 +87,10 @@ const Login = () => {
 
             <Card>
                 <Card.Body>
+
+                    { signupSuccess &&  <Alert variant="success">{location.state.param}</Alert>}
+                    { signupFail &&  <Alert variant="danger">{location.state.param}</Alert>}
+
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id='email'>
                             <Form.Label>Email</Form.Label>

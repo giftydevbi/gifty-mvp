@@ -14,6 +14,7 @@ export function CardProvider( {children}) {
 
     const [currentUser, setCurrentUser] = useState(null);
     const [name, setName] = useState();
+    const [amount, setAmount] = useState();
     const [number, setNumber] = useState();
     const [pin, setPin] = useState();
     const [frontImage, setFrontImage] = useState();
@@ -30,6 +31,7 @@ export function CardProvider( {children}) {
             uid: currentUser.uid,
             name:name,
             number:number,
+            amount:amount,
             pin:pin,
             email: currentUser.email,
             frontImage: frontImage,
@@ -44,7 +46,7 @@ export function CardProvider( {children}) {
 
     const value = {
         setName,setNumber,number,
-        setPin,setFrontImage,
+        setPin,setFrontImage,setAmount,
         setBackImage,storeCardRecord,
         setCurrentUser,
         scanSuccess,

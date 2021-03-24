@@ -9,13 +9,14 @@ const AddCard = () => {
     const nameRef = useRef();
     const numberRef = useRef();
     const pinRef = useRef();
+    const amountRef = useRef();
     const history = useHistory();
 
     const [loading, setLoading] = useState(false);
 
     const { currentUser } = useAuth();
     const { setName, setNumber, number,
-            setPin, setCurrentUser,
+            setPin, setCurrentUser,setAmount,
             scanSuccess,setScanSuccess 
             } = useCard();
 
@@ -29,6 +30,7 @@ const AddCard = () => {
         setName(nameRef.current.value);
         setNumber(numberRef.current.value);
         setPin(pinRef.current.value);
+        setAmount(amountRef.current.value);
         setCurrentUser(currentUser);
 
         history.push('/add-photo-front');
@@ -79,12 +81,17 @@ const AddCard = () => {
                         </Form.Group>
 
                         <Form.Group id='name'>
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label>Card Name</Form.Label>
                             <Form.Control type="text" ref={nameRef} required />
                         </Form.Group>
 
+                        <Form.Group id='name'>
+                            <Form.Label>$ Amount</Form.Label>
+                            <Form.Control type="text" ref={amountRef} required />
+                        </Form.Group>
+
                         <Form.Group id='pin'>
-                            <Form.Label>PIN</Form.Label>
+                            <Form.Label>PIN (if present)</Form.Label>
                             <Form.Control type="text" ref={pinRef} />
                         </Form.Group>
                         <Button disabled={loading} type="submit" className="w-100">Next</Button>

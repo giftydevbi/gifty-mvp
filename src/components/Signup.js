@@ -27,11 +27,12 @@ const Signup = () => {
             setError('');
             setLoading(true);
             unsub = await signup(emailRef.current.value,passwordRef.current.value);
-            history.push('/login');
+            history.push('/login',{param: "Signup Successful"});
         }
         catch (err) {
             console.log(err);
             setError(err.message);
+            history.push('/login',{param: "Signup Failed"});
         }
         setLoading(false);
     }
