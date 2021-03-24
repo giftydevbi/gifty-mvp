@@ -77,7 +77,8 @@ const ShowCard = ({ selectedImg }) => {
                 {dbReadComplete && <Card.Body>
                     <h4 className="text-center mb-2">{doc.name}</h4>
                     <h5 className="text-left mb-2"><span className="text-muted"> Number: </span> {doc.number}</h5>
-                    <h5 className="text-left mb-2"><span className="text-muted"> Amount: </span> {"$" + doc.amount}</h5>
+                    <h5 className="text-left mb-2"><span className="text-muted"> Amount: </span> 
+                     { doc.amount ? ("$" + doc.amount) : " Not specified"}</h5>
                     <h5 className="text-left mb-2"><span className="text-muted"> PIN: </span> {doc.pin}</h5>
                 </Card.Body>}
             </Card>
