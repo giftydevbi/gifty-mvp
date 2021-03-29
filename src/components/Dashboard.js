@@ -89,9 +89,7 @@ const Dashboard = () => {
                     <h5 className="text-center mb-4">Card Wallet</h5>
                     {error && <Alert variant="danger">{error}</Alert>}
                     
-                    {emailStatus.show && 
-                        <Alert variant={emailStatus.variant}>{emailStatus.message}</Alert>
-                    }
+
 
                     <Alert variant="info">{currentUser.email} </Alert>
 
@@ -110,6 +108,9 @@ const Dashboard = () => {
 
             <Card>
                 <Card.Body>
+                {emailStatus.show && 
+                        <Alert variant={emailStatus.variant}>{emailStatus.message}</Alert>
+                    }
                     <Button onClick={handleModalShow} className="btn-dark w-100">Contact giftE</Button>
                 </Card.Body>
             </Card>
