@@ -29,9 +29,11 @@ const Dashboard = () => {
     const submitRequest = async (e) => {
         e.preventDefault();
 
+        const giftyToken = "yUo1MMCjCpnH1Tu7wtDo";
+
         console.log(`from email: ${currentUser.email}`);
 
-        fetch( "https://gifty.live/access", { 
+        fetch( "https://gifty.live/Lu6wZPCcHdyUJN5upWly", { 
           method: 'POST', 
           mode: "no-cors",
           headers: { 
@@ -41,7 +43,7 @@ const Dashboard = () => {
                     "email": currentUser.email,
                     "subject": subjectRef.current.value,
                     "message" : messageRef.current.value,
-                    "token": "gifty-email-token"
+                    "token": giftyToken
                 })
         })
         .then( response => {
@@ -108,7 +110,7 @@ const Dashboard = () => {
 
             <Card>
                 <Card.Body>
-                    <Button onClick={handleModalShow} className="btn-dark w-100">Contact</Button>
+                    <Button onClick={handleModalShow} className="btn-dark w-100">Contact giftE</Button>
                 </Card.Body>
             </Card>
 
