@@ -1,16 +1,64 @@
-import { Card, Button, Alert } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { Card, Button, Alert , Modal, Form} from 'react-bootstrap';
+import { useEffect, useState , useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import ImageGrid from './ImageGrid';
 
+const querystring = require('querystring');
+
 const Dashboard = () => {
 
+    const [modalShow, setModalShow] = useState(false);
     const [error, setError] = useState("");
     const [displayProfile, setDisplayProfile] = useState(false);
+    const [emailStatus,setEmailStatus] = useState({
+        show: false,
+        message: "SUCCESS: Email sent to giftE",
+        variant: "success"
+    });
+
     const history = useHistory();
+    const subjectRef = useRef();
+    const messageRef = useRef();
+
+    const handleModalShow = () => setModalShow(true);
+    const handleModalClose = () => setModalShow(false);
 
     const { currentUser, logout , loggedInWithGoogle} = useAuth();
+
+    const submitRequest = async (e) => {
+        e.preventDefault();
+
+        console.log(`from email: ${currentUser.email}`);
+
+        fetch( "https://gifty.live/access", { 
+          method: 'POST', 
+          mode: "no-cors",
+          headers: { 
+              'Content-type': 'application/x-www-form-urlencoded'
+          }, 
+          body: querystring.stringify({
+                    "email": currentUser.email,
+                    "subject": subjectRef.current.value,
+                    "message" : messageRef.current.value,
+                    "token": "gifty-email-token"
+                })
+        })
+        .then( response => {
+            setEmailStatus({...emailStatus, show:true});
+            console.log(`SUCCESS::response = ${JSON.stringify(response)}`);
+            handleModalClose();
+        })
+        .catch( err => {
+            setEmailStatus({...emailStatus, show:true, 
+                message:"FAILED: Unable to send email to giftE",
+                variant:"danger"
+            })
+            console.log(`FAIL::Fetch status = ${err}`);
+            handleModalClose();
+        })
+
+    };
 
     useEffect( () => {
         if ( loggedInWithGoogle )
@@ -29,7 +77,6 @@ const Dashboard = () => {
         catch (err) {
             setError('Failed to Log out');
         }
-
     }
 
     return (
@@ -39,6 +86,11 @@ const Dashboard = () => {
                     
                     <h5 className="text-center mb-4">Card Wallet</h5>
                     {error && <Alert variant="danger">{error}</Alert>}
+                    
+                    {emailStatus.show && 
+                        <Alert variant={emailStatus.variant}>{emailStatus.message}</Alert>
+                    }
+
                     <Alert variant="info">{currentUser.email} </Alert>
 
                     <ImageGrid currentUser={currentUser}/>
@@ -53,6 +105,38 @@ const Dashboard = () => {
 
                 </Card.Body>
             </Card>
+
+            <Card>
+                <Card.Body>
+                    <Button onClick={handleModalShow} className="btn-dark w-100">Contact</Button>
+                </Card.Body>
+            </Card>
+
+            <Modal size='lg' show={modalShow} onHide={handleModalClose}>
+                <Modal.Header closeButton>Email the giftE Team
+                </Modal.Header>
+                <Modal.Body>
+
+                    <Form.Group id='subject'>
+                        <Form.Label>Subject: </Form.Label>
+                        <Form.Control type="text" ref={subjectRef} required />
+                    </Form.Group>
+
+                    <Form.Group id='message'>
+                        <Form.Label>Message: </Form.Label>
+                        <Form.Control as="textarea" rows={5} ref={messageRef} />
+                    </Form.Group>
+
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={submitRequest} className="text-center">
+                        Send
+                    </Button>
+                    <Button variant="secondary" onClick={handleModalClose} className="text-center">
+                        Cancel
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
             <div className="w-100 mt-2 text-center">
                 <Button variant='link' onClick={handleLogout}>Logout</Button>

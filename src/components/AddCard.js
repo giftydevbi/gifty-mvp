@@ -48,12 +48,13 @@ const AddCard = () => {
             <Card>
                 <Card.Body>
 
-                    <h2 className="text-center mb-4">Card Info</h2>
+                    <h2 className="text-center">Card Info</h2>
+                    <p className="text-center"><small>Please scratch off to show numbers</small></p>
 
                     <Form onSubmit={handleSubmit}>
 
                         <Form.Group id='number'>
-                            <Form.Label>Number</Form.Label>
+                            <Form.Label>Card Number</Form.Label>
 
                             <InputGroup className="mb-3">
                                 { scanSuccess ? 
