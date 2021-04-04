@@ -1,5 +1,5 @@
-import { Card, Button, Alert , Modal, Form} from 'react-bootstrap';
-import { useEffect, useState , useRef } from 'react';
+import { Card, Button, Alert, Modal, Form, Container, Row, Col } from 'react-bootstrap';
+import { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import ImageGrid from './ImageGrid';
@@ -11,11 +11,13 @@ const Dashboard = () => {
     const [modalShow, setModalShow] = useState(false);
     const [error, setError] = useState("");
     const [displayProfile, setDisplayProfile] = useState(false);
-    const [emailStatus,setEmailStatus] = useState({
+    const [emailStatus, setEmailStatus] = useState({
         show: false,
         message: "SUCCESS: Email sent to giftE",
         variant: "success"
     });
+
+    //const loggedInWithGoogleLS = localStorage.getItem('loggedInWithGoogle') ;
 
     const history = useHistory();
     const subjectRef = useRef();
@@ -24,7 +26,7 @@ const Dashboard = () => {
     const handleModalShow = () => setModalShow(true);
     const handleModalClose = () => setModalShow(false);
 
-    const { currentUser, logout , loggedInWithGoogle} = useAuth();
+    const { currentUser, logout , loggedInWithGoogle } = useAuth();
 
     const submitRequest = async (e) => {
         e.preventDefault();
@@ -33,45 +35,45 @@ const Dashboard = () => {
 
         console.log(`from email: ${currentUser.email}`);
 
-        fetch( "https://gifty.live/Lu6wZPCcHdyUJN5upWly", { 
-          method: 'POST', 
-          mode: "no-cors",
-          headers: { 
-              'Content-type': 'application/x-www-form-urlencoded'
-          }, 
-          body: querystring.stringify({
-                    "email": currentUser.email,
-                    "subject": subjectRef.current.value,
-                    "message" : messageRef.current.value,
-                    "token": giftyToken
-                })
-        })
-        .then( response => {
-            setEmailStatus({...emailStatus, show:true});
-            console.log(`SUCCESS::response = ${JSON.stringify(response)}`);
-            handleModalClose();
-        })
-        .catch( err => {
-            setEmailStatus({...emailStatus, show:true, 
-                message:"FAILED: Unable to send email to giftE",
-                variant:"danger"
+        fetch("https://gifty.live/Lu6wZPCcHdyUJN5upWly", {
+            method: 'POST',
+            mode: "no-cors",
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded'
+            },
+            body: querystring.stringify({
+                "email": currentUser.email,
+                "subject": subjectRef.current.value,
+                "message": messageRef.current.value,
+                "token": giftyToken
             })
-            console.log(`FAIL::Fetch status = ${err}`);
-            handleModalClose();
         })
-
+            .then(response => {
+                setEmailStatus({ ...emailStatus, show: true });
+                console.log(`SUCCESS::response = ${JSON.stringify(response)}`);
+                handleModalClose();
+            })
+            .catch(err => {
+                setEmailStatus({
+                    ...emailStatus, show: true,
+                    message: "FAILED: Unable to send email to giftE",
+                    variant: "danger"
+                })
+                console.log(`FAIL::Fetch status = ${err}`);
+                handleModalClose();
+            })
     };
 
-    useEffect( () => {
-        if ( loggedInWithGoogle )
+    useEffect(() => {
+        if (loggedInWithGoogle === true )
             setDisplayProfile(false);
         else
             setDisplayProfile(true);
-    },[loggedInWithGoogle])
+    }, [loggedInWithGoogle])
 
     async function handleLogout() {
         setError('');
-
+        localStorage.getItem('loggedInWithGoogle',false)
         try {
             await logout();
             history.push('/login');
@@ -85,21 +87,19 @@ const Dashboard = () => {
         <>
             <Card>
                 <Card.Body>
-                    
+
                     <h5 className="text-center mb-4">Card Wallet</h5>
                     {error && <Alert variant="danger">{error}</Alert>}
-                    
-
 
                     <Alert variant="info">{currentUser.email} </Alert>
 
-                    <ImageGrid currentUser={currentUser}/>
+                    <ImageGrid currentUser={currentUser} />
 
-                    {displayProfile && <Link to='update-profile' className='btn btn-primary w-100 mt-3'>
+                    { displayProfile && <Link to='update-profile' className='btn mb-3 btn-primary w-100'>
                         Update Profile
                      </Link>}
 
-                    <Link to='add-card' className='btn btn-info w-100 mt-3'>
+                    <Link to='add-card' className='btn btn-info w-100'>
                         Add Card
                      </Link>
 
@@ -108,10 +108,21 @@ const Dashboard = () => {
 
             <Card>
                 <Card.Body>
-                {emailStatus.show && 
-                        <Alert variant={emailStatus.variant}>{emailStatus.message}</Alert>
-                    }
-                    <Button onClick={handleModalShow} className="btn-dark w-100">Contact giftE</Button>
+                    <Container>
+                        <Row>
+                            {emailStatus.show &&
+                                <Alert variant={emailStatus.variant}>{emailStatus.message}</Alert>
+                            }
+                        </Row>
+                        <Row>
+                            <Col>
+                                <a rel="noreferrer" href="https://itsgifte.com" className="btn-outline-dark btn w-100">About giftE</a>
+                            </Col>
+                            <Col>
+                                <Button onClick={handleModalShow} className="w-100" variant="outline-dark" >Contact</Button>
+                            </Col>
+                        </Row>
+                    </Container>
                 </Card.Body>
             </Card>
 
@@ -141,7 +152,7 @@ const Dashboard = () => {
                 </Modal.Footer>
             </Modal>
 
-            <div className="w-100 mt-2 text-center">
+            <div className="w-100 text-center">
                 <Button variant='link' onClick={handleLogout}>Logout</Button>
             </div>
         </>

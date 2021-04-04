@@ -21,11 +21,13 @@ export function AuthProvider( {children}) {
     
     function login(email,password) {
         setLoggedInWithGoogle(false);
+        localStorage.setItem('loggedInWithGoogle',false);
         return auth.signInWithEmailAndPassword(email,password);
     }
 
     function googleLogin() {
         setLoggedInWithGoogle(true);
+        localStorage.setItem('loggedInWithGoogle',true);
         return auth.signInWithPopup(googleProvider);
     }
 
